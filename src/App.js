@@ -2,6 +2,10 @@ import Users from "./Users";
 import React from "react";
 import { useState, useEffect } from "react";
 
+import { Link, Route, Routes } from "react-router-dom";
+import About from "./About";
+import Contact from "./Contact";
+
 
 const App = () => {
   
@@ -31,6 +35,19 @@ localStorage.setItem("users", JSON.stringify(users))
 
   return (
     <>
+
+    <nav>
+
+    <Link to='/' >Home</Link>
+    <Link to='/about' style={{marginLeft: '10px'}}>About</Link>
+    <Link to='/contact' style={{marginLeft: '10px'}}>Contact</Link>
+    <Link to='/users' style={{marginLeft: '10px'}}>Users</Link>
+    </nav>
+
+    <Routes>
+      <Route path = "/about" element={<About></About>}/>
+      <Route path = "/contact" element={<Contact></Contact>}/>
+    </Routes>
       <div style={styles.container}>
         <h1 style={styles.heading}>Enter Names</h1>
 
