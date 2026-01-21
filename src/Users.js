@@ -5,24 +5,31 @@ const Users = ({ users }) => {
     <>
       <h2 style={{ marginTop: "20px" }}>Users List</h2>
 
+
+
+{ users.length === 0 ? <p> NO users detected</p> : 
+
       <ul style={{ paddingLeft: "20px" }}>
+
+        
         {users.map((value, index) => {
           return (
-            <li
+              <li
               key={index}
               style={{
-                background: "#fff",
+                  background: "#fff",
                 padding: "8px",
                 marginBottom: "6px",
                 borderRadius: "4px",
                 boxShadow: "0 2px 4px rgba(0,0,0,0.05)"
-              }}
+            }}
             >
               {value}
             </li>
           );
         })}
       </ul>
+    }
     </>
   );
 };
