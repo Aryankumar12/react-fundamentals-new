@@ -1,114 +1,36 @@
-import Users from "./Users";
-import React from "react";
-import { useState, useEffect } from "react";
+import React from 'react'
 
-import { Link, Route, Routes } from "react-router-dom";
-import About from "./About";
-import Contact from "./Contact";
-
+import { useState } from 'react';
+import { useCallback } from 'react';
+import Child from './Child';
 
 const App = () => {
+
+  const[count, setCount] = useState(0);
+  const[name, setName]  = useState("John");
+
+const increment = useCallback(
+  () => {
+    setCount(prev => prev+1);
+  },
+  [],
+)
+
   
-
-const[users, setUsers] = useState(()=>{
-  const storedUsers = localStorage.getItem("users");
-
-  return storedUsers ? JSON.parse(storedUsers): [];
-})
-
-  const [name, setName] = useState("");
-
-  useEffect(()=>{
-
-    const storedUsers = localStorage.getItem("users");
-    if(storedUsers){
-      setUsers(JSON.parse(storedUsers))
-    }
-
-   
-
-  },[])
-
-useEffect(()=>{
-localStorage.setItem("users", JSON.stringify(users))
-},[users])
-
   return (
     <>
 
-    <nav>
+      <h2> count : {count}</h2>
 
-    <Link to='/' >Home</Link>
-    <Link to='/about' style={{marginLeft: '10px'}}>About</Link>
-    <Link to='/contact' style={{marginLeft: '10px'}}>Contact</Link>
-    <Link to='/users' style={{marginLeft: '10px'}}>Users</Link>
-    </nav>
+      <input type ="text" value = {name}></input>
 
-    <Routes>
-      <Route path = "/about" element={<About></About>}/>
-      <Route path = "/contact" element={<Contact></Contact>}/>
-    </Routes>
-      <div style={styles.container}>
-        <h1 style={styles.heading}>Enter Names</h1>
 
-        <input
-          type="text"
-          value={name}
-          placeholder="Enter name"
-          onChange={(e) => setName(e.target.value)}
-          style={styles.input}
-        />
+      <Child onIncrement = {increment}></Child>
 
-        <div>
-          <button
-            onClick={() => {
-              setUsers((prev) => [...prev, name]);
-              setName("");
-            }}
-            style={styles.button}
-          >
-            Add User
-          </button>
-        </div>
 
-        <Users users={users} />
-      </div>
+    
     </>
-  );
-};
+  )
+}
 
-export default App;
-
-const styles = {
-  container: {
-    width: "400px",
-    margin: "50px auto",
-    padding: "20px",
-    borderRadius: "10px",
-    backgroundColor: "#f9f9f9",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-    fontFamily: "Arial, sans-serif"
-  },
-  heading: {
-    textAlign: "center",
-    marginBottom: "15px"
-  },
-  input: {
-    width: "100%",
-    padding: "10px",
-    fontSize: "16px",
-    marginBottom: "10px",
-    borderRadius: "5px",
-    border: "1px solid #ccc"
-  },
-  button: {
-    width: "100%",
-    padding: "10px",
-    fontSize: "16px",
-    backgroundColor: "#007bff",
-    color: "#fff",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer"
-  }
-};
+export default App
